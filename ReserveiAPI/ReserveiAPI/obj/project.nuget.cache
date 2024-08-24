@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "r1M3hOU9jnyPV4iJcD8J5P95XNWzJREW7JZpMqJ8nJn4/pZOffEEA8SdSjyXGWxbmB6UuRqDIka14qQ33lvEPw==",
+  "dgSpecHash": "X0QbgC8VY6ePSCHE3b8wJd7oTfzAh3nZKIalWdCgGVGC3V1287Ld5jhniHpktUEUvH03MPqMhBitxkM826wOcQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\marco\\Desktop\\Marco\\MiniCursoC#_ReactJS\\ReserveiAPI\\ReserveiAPI\\ReserveiAPI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\marco\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\marco\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\marco\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\marco\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.3.3\\microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512",
