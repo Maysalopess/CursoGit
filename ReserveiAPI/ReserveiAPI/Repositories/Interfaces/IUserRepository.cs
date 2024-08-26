@@ -1,4 +1,5 @@
-﻿using ReserveiAPI.Objects.Models.Entities;
+﻿using ReserveiAPI.Objects.DTO_s.Entities;
+using ReserveiAPI.Objects.Models.Entities;
 
 namespace ReserveiAPI.Repositories.Interfaces
 {
@@ -10,5 +11,6 @@ namespace ReserveiAPI.Repositories.Interfaces
         Task<UserModel> Create(UserModel userModel);
         Task<UserModel> Update(UserModel userModel);
         Task<UserModel> Delete(UserModel userModel);
+       
     }
 }
