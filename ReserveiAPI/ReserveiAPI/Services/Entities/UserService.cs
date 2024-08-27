@@ -2,15 +2,16 @@
 using ReserveiAPI.Objects.DTO_s.Entities;
 using ReserveiAPI.Objects.Models.Entities;
 using ReserveiAPI.Repositories.Interfaces;
+using ReserveiAPI.Services.Interfaces;
 
-namespace ReserveiAPI.Repositories.Entities
+namespace ReserveiAPI.Services.Entities
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
 
-        public UserService (IUserRepository userRepository, IMapper mapper)
+        public UserService(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
             _mapper = mapper;
@@ -54,6 +55,6 @@ namespace ReserveiAPI.Repositories.Entities
 
             userDTO.PasswordUser = "";
         }
-        
+
     }
 }

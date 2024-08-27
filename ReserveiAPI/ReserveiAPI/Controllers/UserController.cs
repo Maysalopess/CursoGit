@@ -2,7 +2,7 @@
 using ReserveiAPI.Objects.Contracts;
 using ReserveiAPI.Objects.DTO_s.Entities;
 using ReserveiAPI.Objects.Utilities;
-using ReserveiAPI.Repositories.Interfaces;
+using ReserveiAPI.Services.Interfaces;
 using System.Diagnostics;
 using System.Dynamic;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -152,7 +152,7 @@ namespace ReserveiAPI.Controllers
                 dynamic errors = new ExpandoObject();
                 var hasErrors = false;
 
-                CheckDatas(userDTO, ref hasErrors, ref hasErrors);
+                CheckDatas(userDTO, ref errors, ref hasErrors);
 
                 if(hasErrors)
                 {
