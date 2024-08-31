@@ -28,7 +28,7 @@ namespace ReserveiAPI.Repositories.Entities
 
         public async Task<UserModel> GetByEmail(string email)
         {
-            return await _dbContext.User.AsNoTracking().FirstOrDefaultAsync(u = u => u.EmailUser == email);
+            return await _dbContext.User.AsNoTracking().FirstOrDefaultAsync(u => u.EmailUser == email);
         }
 
         public async Task<UserModel> Login(Login login)

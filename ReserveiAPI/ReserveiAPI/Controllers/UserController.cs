@@ -4,14 +4,13 @@ using ReserveiAPI.Objects.DTO_s.Entities;
 using ReserveiAPI.Objects.Utilities;
 using ReserveiAPI.Services.Interfaces;
 using System.Dynamic;
-using System.Diagnostics;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Threading.Tasks;
 
 namespace ReserveiAPI.Controllers
 {
-    [Route("api/[controller")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class UserController : Controller
+    public class UserController : ControllerBase // Alterado para ControllerBase
     {
         private readonly IUserService _userService;
         private readonly Response _response;
@@ -31,7 +30,7 @@ namespace ReserveiAPI.Controllers
                 _response.SetSuccess();
                 _response.Message = usersDTO.Any() ?
                     "Lista do(s) Usuário(s) obtida com sucesso." :
-                    "Nehum Usuário encontrado.";
+                    "Nenhum Usuário encontrado.";
                 _response.Data = usersDTO;
                 return Ok(_response);
             }
@@ -39,18 +38,18 @@ namespace ReserveiAPI.Controllers
             {
                 _response.SetError();
                 _response.Message = "Não foi possível adquirir a lista do(s) Usuário(s)";
-                _response.Data = new {ErrorMessage = ex.Message, StackTrace = ex.StackTrace ?? "No stack trace available!" };
+                _response.Data = new { ErrorMessage = ex.Message, StackTrace = ex.StackTrace ?? "No stack trace available!" };
                 return StatusCode(StatusCodes.Status500InternalServerError, _response);
             }
         }
 
         [HttpGet("GetById/{id:int}")]
-        public async Task<ActionResult<UserDTO>> GetById (int id)
+        public async Task<ActionResult<UserDTO>> GetById(int id)
         {
             try
             {
                 var userDTO = await _userService.GetById(id);
-                if(userDTO is null)
+                if (userDTO == null)
                 {
                     _response.SetNotFound();
                     _response.Message = "Usuário não encontrado!";
@@ -61,7 +60,7 @@ namespace ReserveiAPI.Controllers
                 _response.SetSuccess();
                 _response.Message = "Usuário " + userDTO.NameUser + " obtido com sucesso.";
                 _response.Data = userDTO;
-                return NotFound(_response);
+                return Ok(_response); // Corrigido para Ok
             }
             catch (Exception ex)
             {
@@ -75,9 +74,8 @@ namespace ReserveiAPI.Controllers
         [HttpPost("Create")]
         public async Task<ActionResult> Create([FromBody] UserDTO userDTO)
         {
-            if(userDTO is null)
+            if (userDTO == null)
             {
-
                 _response.SetInvalid();
                 _response.Message = "Dado(s) inválido(s)";
                 _response.Data = userDTO;
@@ -85,7 +83,7 @@ namespace ReserveiAPI.Controllers
             }
             userDTO.Id = 0;
 
-            try 
+            try
             {
                 dynamic errors = new ExpandoObject();
                 var hasErrors = false;
@@ -103,7 +101,7 @@ namespace ReserveiAPI.Controllers
                 var usersDTO = await _userService.GetAll();
                 CheckDuplicates(usersDTO, userDTO, ref errors, ref hasErrors);
 
-                if(!hasErrors)
+                if (hasErrors)
                 {
                     _response.SetConflict();
                     _response.Message = "Dado(s) com conflitos";
@@ -118,7 +116,8 @@ namespace ReserveiAPI.Controllers
                 _response.Message = "Usuário " + userDTO.NameUser + " cadastrado com sucesso. ";
                 _response.Data = userDTO;
                 return Ok(_response);
-            }catch (Exception ex) 
+            }
+            catch (Exception ex)
             {
                 _response.SetError();
                 _response.Message = "Não foi possível cadastrar o Usuário!";
@@ -126,6 +125,7 @@ namespace ReserveiAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, _response);
             }
         }
+
         [HttpPost("Login")]
         public async Task<ActionResult> Login([FromBody] Login login)
         {
@@ -142,7 +142,7 @@ namespace ReserveiAPI.Controllers
                 login.Password = login.Password.HashPassword();
                 var userDTO = await _userService.Login(login);
 
-                if(userDTO == null)
+                if (userDTO == null)
                 {
                     _response.SetUnauthorized();
                     _response.Message = "Login inválido!";
@@ -157,7 +157,8 @@ namespace ReserveiAPI.Controllers
                 _response.Message = "Login realizado com sucesso.";
                 _response.Data = token;
                 return Ok(_response);
-            }catch(Exception ex) 
+            }
+            catch (Exception ex)
             {
                 _response.SetError();
                 _response.Message = "Não foi possível realizar o Login!";
@@ -169,7 +170,7 @@ namespace ReserveiAPI.Controllers
         [HttpPost("Validate")]
         public async Task<ActionResult> Validate([FromBody] Token token)
         {
-            if(token is not null)
+            if (token == null)
             {
                 _response.SetInvalid();
                 _response.Message = "Dado inválido";
@@ -181,14 +182,14 @@ namespace ReserveiAPI.Controllers
             {
                 var email = token.ExtractSubject();
 
-                if(string.IsNullOrEmpty(email) || await _userService.GetByEmail(email) == null)
+                if (string.IsNullOrEmpty(email) || await _userService.GetByEmail(email) == null)
                 {
                     _response.SetUnauthorized();
                     _response.Message = "Token inválido!";
                     _response.Data = new { errorToken = "Token inválido!" };
                     return BadRequest(_response);
                 }
-                else if(!token.ValidateToken())
+                else if (!token.ValidateToken())
                 {
                     _response.SetUnauthorized();
                     _response.Message = "Token inválido!";
@@ -200,7 +201,8 @@ namespace ReserveiAPI.Controllers
                 _response.Message = "Token validado com sucesso.";
                 _response.Data = token;
                 return Ok(_response);
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 _response.SetError();
                 _response.Message = "Não foi possível validar o Token!";
@@ -212,7 +214,7 @@ namespace ReserveiAPI.Controllers
         [HttpPut("Update")]
         public async Task<ActionResult> Update([FromBody] UserDTO userDTO)
         {
-            if(userDTO is null)
+            if (userDTO == null)
             {
                 _response.SetInvalid();
                 _response.Message = "Dado(s) inválido(s)";
@@ -220,10 +222,10 @@ namespace ReserveiAPI.Controllers
                 return BadRequest(_response);
             }
 
-            try 
+            try
             {
                 var existingUserDTO = await _userService.GetById(userDTO.Id);
-                if (existingUserDTO is null) 
+                if (existingUserDTO == null)
                 {
                     _response.SetNotFound();
                     _response.Message = "Dado(s) com conflito!";
@@ -236,12 +238,12 @@ namespace ReserveiAPI.Controllers
 
                 CheckDatas(userDTO, ref errors, ref hasErrors);
 
-                if(hasErrors)
+                if (hasErrors)
                 {
-                        _response.SetConflict();
-                        _response.Message = "Dado(s) com conflitos";
-                        _response.Data = errors;
-                        return BadRequest(_response);
+                    _response.SetConflict();
+                    _response.Message = "Dado(s) com conflitos";
+                    _response.Data = errors;
+                    return BadRequest(_response);
                 }
 
                 var usersDTO = await _userService.GetAll();
@@ -262,7 +264,8 @@ namespace ReserveiAPI.Controllers
                 _response.Message = "Usuário " + userDTO.NameUser + " alterado com sucesso. ";
                 _response.Data = userDTO;
                 return Ok(_response);
-            }catch(Exception ex) 
+            }
+            catch (Exception ex)
             {
                 _response.SetError();
                 _response.Message = "Não foi possível alterar o Usuário!";
@@ -271,13 +274,13 @@ namespace ReserveiAPI.Controllers
             }
         }
 
-        [HttpDelete("Delete/{id:int")]
-        public async Task<ActionResult<UserDTO>> Delete (int id)
+        [HttpDelete("Delete/{id:int}")]
+        public async Task<ActionResult<UserDTO>> Delete(int id)
         {
-            try 
+            try
             {
                 var userDTO = await _userService.GetById(id);
-                if (userDTO is null)
+                if (userDTO == null)
                 {
                     _response.SetNotFound();
                     _response.Message = "Dado(s) com conflito!";
@@ -291,7 +294,8 @@ namespace ReserveiAPI.Controllers
                 _response.Data = userDTO;
                 return Ok(_response);
 
-            }catch(Exception ex) 
+            }
+            catch (Exception ex)
             {
                 _response.SetError();
                 _response.Message = "Não foi possível excluir o Usuário!";
@@ -302,18 +306,19 @@ namespace ReserveiAPI.Controllers
 
         private static void CheckDatas(UserDTO userDTO, ref dynamic errors, ref bool hasErrors)
         {
-            if(!ValidatorUtilitie.CheckValidPhone(userDTO.PhoneUser))
+            if (!ValidatorUtilitie.CheckValidPhone(userDTO.PhoneUser))
             {
                 errors.errorPhoneUser = "Número Inválido!";
                 hasErrors = true;
             }
 
             int status = ValidatorUtilitie.CheckValidEmail(userDTO.EmailUser);
-            if(status == -1)
+            if (status == -1)
             {
                 errors.errorEmailUser = "E-mail inválido!";
                 hasErrors = true;
-            }else if (status == -2)
+            }
+            else if (status == -2)
             {
                 errors.errorEmailUser = "Domínio inválido!";
                 hasErrors = true;
@@ -322,22 +327,20 @@ namespace ReserveiAPI.Controllers
 
         private static void CheckDuplicates(IEnumerable<UserDTO> usersDTO, UserDTO userDTO, ref dynamic errors, ref bool hasErrors)
         {
-            foreach(var user in usersDTO)
+            foreach (var user in usersDTO)
             {
-                if(userDTO.Id == user.Id)
+                if (userDTO.Id == user.Id)
                 {
                     continue;
                 }
 
-                if(ValidatorUtilitie.CompareString(userDTO.EmailUser, user.EmailUser))
+                if (ValidatorUtilitie.CompareString(userDTO.EmailUser, user.EmailUser))
                 {
                     errors.errorEmailUser = "O e-mail " + userDTO.EmailUser + " já está sendo utilizado!";
                     hasErrors = true;
-
                     break;
                 }
             }
         }
-
     }
 }

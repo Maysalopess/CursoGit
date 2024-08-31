@@ -6,7 +6,7 @@ namespace ReserveiAPI.Contexts
 {
     public class AppDBContext : DbContext
     {
-        public AppDBContext(DbContextOptions<DbContext> options) : base(options) { }
+        public AppDBContext(DbContextOptions<AppDBContext> options) : base(options) { }
 
         public DbSet<UserModel> User { get; set;}
 

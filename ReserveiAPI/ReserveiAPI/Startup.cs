@@ -8,7 +8,6 @@ namespace ReserveiAPI
 {
     public class Startup
     {
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,9 +29,9 @@ namespace ReserveiAPI
                 c => c.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
             services.AddEndpointsApiExplorer();
-            services.AddCors(o => o.AddPolicy("MyPolice", builder =>
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
-                builder.WithOrigins("http://localhost:3000", "htpp//localhost:5173")
+                builder.WithOrigins("http://localhost:3000", "http://localhost:5173")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials();
@@ -40,13 +39,14 @@ namespace ReserveiAPI
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+            // Certifique-se de que esta extensão está configurada corretamente
             services.AddUserDependencies();
         }
 
-        public void Configure (IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if(env.IsDevelopment()) 
-            { 
+            if (env.IsDevelopment())
+            {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
@@ -70,12 +70,11 @@ namespace ReserveiAPI
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseCors("MyPolicy");
+            app.UseCors("MyPolicy"); // Certifique-se de que o nome da política está correto
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
         }
-
     }
 }
