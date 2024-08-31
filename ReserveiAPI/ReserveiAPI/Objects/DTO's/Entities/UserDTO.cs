@@ -22,7 +22,7 @@ namespace ReserveiAPI.Objects.DTO_s.Entities
             set => _emailUser = value.ToLower();
         }
 
-        public string _emailUser { get; set; }
+        private string _emailUser { get; set; }
 
         [Required(ErrorMessage = "A senha é requerida")]
         [MinLength(8)]

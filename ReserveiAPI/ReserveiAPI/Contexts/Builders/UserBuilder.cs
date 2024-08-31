@@ -13,9 +13,9 @@ namespace ReserveiAPI.Contexts.Builders
             modelBuilder.Entity<UserModel>().HasKey(user => user.Id);
             modelBuilder.Entity<UserModel>().Property(user => user.ImageProfile);
             modelBuilder.Entity<UserModel>().Property(user => user.NameUser).HasMaxLength(100).IsRequired();
-            modelBuilder.Entity<UserModel>().Property(user => user.ImageProfile).HasMaxLength(200).IsRequired();
-            modelBuilder.Entity<UserModel>().Property(user => user.ImageProfile).HasMaxLength(256).IsRequired();
-            modelBuilder.Entity<UserModel>().Property(user => user.ImageProfile).HasMaxLength(15).IsRequired();
+            modelBuilder.Entity<UserModel>().Property(user => user.EmailUser).HasMaxLength(200).IsRequired();
+            modelBuilder.Entity<UserModel>().Property(user => user.PasswordUser).HasMaxLength(256).IsRequired();
+            modelBuilder.Entity<UserModel>().Property(user => user.PhoneUser).HasMaxLength(15).IsRequired();
 
             modelBuilder.Entity<UserModel>().HasData(
             new UserModel
