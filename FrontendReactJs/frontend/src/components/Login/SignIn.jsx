@@ -1,35 +1,36 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
-import LogoLogin from "../assets/logoLogin.png";
-import { useNavigate } from "react-router-dom";
-import { Eye, EyeSlash } from "@phosphor-icons/react";  
+import logoLogin from "../assets/logoLogin.png";
+import { Eye, EyeSlash } from "@phosphor-icons/react";
 
-const SignIn = ({ onSignUpClick }) => {
+const SignUp = ({ onSignInClick }) => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false); // Estado para controlar visibilidade da senha
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
       const response = await axios.post(
-        "https://localhost:7266/api/User/Login",
+        "https://localhost:7266/api/User/Create",
         {
-          email,
-          password,
+          imageUser: "guigas",
+          nameUser: name,
+          emailUser: email,
+          passwordUser: password,
+          phoneUser: "(17)99999-9999",
         }
       );
 
       if (response.status === 200) {
-        Cookies.set("login", "ativo", { expires: 1 }); // O cookie expira em 1 dia
-        navigate("/inicio");
+        alert("Usuário cadastrado com sucesso!");
       }
     } catch (error) {
       setError(
-        "Falha ao realizar o login. Verifique suas credenciais e tente novamente."
+        "Falha ao cadastrar o usuário. Verifique os dados e tente novamente."
       );
     }
   };
@@ -37,33 +38,41 @@ const SignIn = ({ onSignUpClick }) => {
   return (
     <div className="flex flex-col w-3/4 min-h-screen px-12 justify-center">
       <div className="flex justify-center mb-14">
-        <h1 className="text-4xl 🟥 text-[#2D2D2D] font-semibold">
-          Bem vindo(a)!
+        <h1 className="text-4x1 text -[#2D2D2D] font-semibold">
+          Crie sua conta
         </h1>
       </div>
       <div className="flex text-lg">
         <h2 className="">
-          Ainda não possui uma conta?
+          Ja possui uma conta?
           <span
-            className="underline hover:cursor-pointer 🟥 hover:text-[#BD1A37] px-1"
-            onClick={onSignUpClick}
+            className="underline hover:cursor-pointer hover:text-red-600 px-1"
+            onClick={onSignInClick}
           >
-            Clique aqui para criar a sua conta.
+            Clique aqui para entrar com a sua conta
           </span>
-          É de graça, leva poucos minutos.
         </h2>
       </div>
-      {error && <div className="🟥text-red-500 mb-4">{error}</div>}
+
+      {error && <div className="text-red-500 mb-4">{error}</div>}
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-y-4 mt-8 🟥text-[#2D2D2D]"
+        className="flex flex-col gap-y-3 mt-8 text-[#2D2D2D]"
       >
-        <h3 className="text-2xl">Email:</h3>
+        <h3 className="text-2xl">Nome:</h3>
         <input
           type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="h-[50px] border-[2px] border-[#D9D9D9] rounded-md px-3 text-lg"
+          required
+        />
+        <h3 className="text-2xl">Email:</h3>
+        <input
+          type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="h-[50px] border-[2px] 🟥 border-[#D9D9D9] rounded-md px-3 text-lg"
+          className="h-[50px] border-[2px] border-[#D9D9D9] rounded-md px-3 text-lg"
           required
         />
         <h3 className="text-2xl">Senha:</h3>
@@ -72,7 +81,7 @@ const SignIn = ({ onSignUpClick }) => {
             type={showPassword ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="h-[50px] border-[2px] 🟥 border-[#D9D9D9] rounded-md px-3 text-lg pr-10 w-full"
+            className="h-[50px] border-[2px] border-[#D9D9D9] rounded-md px-3 text-lg pr-10 w-full"
             required
           />
           <button
@@ -85,16 +94,14 @@ const SignIn = ({ onSignUpClick }) => {
         </div>
         <button
           type="submit"
-          className="h-[55px] 🟥 bg-[#BD1A37] text-2xl text-white mt-[70px]"
+          className="h-[55px] bg-[#BD1A37] text-2xl text-white mt-[60px]"
         >
-          Entrar
+          Cadastrar
         </button>
       </form>
-      <div className='flex w-full justify-center pt-11'>
-        <img className='h-[60px] w-[139.35px]' src={LogoLogin} alt=""/>
+      <div className="flex w-full justify-center pt-11">
+        <img className="h-[60px] w-[139.35px]" src={logoLogin} alt="" />
       </div>
     </div>
   );
 };
-
-export default SignIn;
