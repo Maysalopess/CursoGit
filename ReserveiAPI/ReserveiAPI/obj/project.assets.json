@@ -5048,11 +5048,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\marco\\Desktop\\Marco\\MiniCursoC#_ReactJS\\ReserveiAPI\\ReserveiAPI\\ReserveiAPI.csproj",
+      "projectUniqueName": "C:\\Users\\marco\\Desktop\\Marco\\MiniCursoCsharp_ReactJS\\ReserveiAPI\\ReserveiAPI\\ReserveiAPI.csproj",
       "projectName": "ReserveiAPI",
-      "projectPath": "C:\\Users\\marco\\Desktop\\Marco\\MiniCursoC#_ReactJS\\ReserveiAPI\\ReserveiAPI\\ReserveiAPI.csproj",
+      "projectPath": "C:\\Users\\marco\\Desktop\\Marco\\MiniCursoCsharp_ReactJS\\ReserveiAPI\\ReserveiAPI\\ReserveiAPI.csproj",
       "packagesPath": "C:\\Users\\marco\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\marco\\Desktop\\Marco\\MiniCursoC#_ReactJS\\ReserveiAPI\\ReserveiAPI\\obj\\",
+      "outputPath": "C:\\Users\\marco\\Desktop\\Marco\\MiniCursoCsharp_ReactJS\\ReserveiAPI\\ReserveiAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\marco\\AppData\\Roaming\\NuGet\\NuGet.Config",

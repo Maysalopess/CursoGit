@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1g/+hTeR30GQ7KftlebTr4qqjOmZLa0/kYbKKMzav3MKhfP2VKe+V9LaFNzFO4cReN4q4oLJpuLr4X7swBMfqQ==",
+  "dgSpecHash": "Abl64dXisFLQFH5RdA1ic1+TZ+azN3hkyCaK7OtRJRqBMMvCXWrU2lmO2uidLLJzfB768BPKgUeCNlyzbXAmDQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\marco\\Desktop\\Marco\\MiniCursoC#_ReactJS\\ReserveiAPI\\ReserveiAPI\\ReserveiAPI.csproj",
+  "projectFilePath": "C:\\Users\\marco\\Desktop\\Marco\\MiniCursoCsharp_ReactJS\\ReserveiAPI\\ReserveiAPI\\ReserveiAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\marco\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\marco\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

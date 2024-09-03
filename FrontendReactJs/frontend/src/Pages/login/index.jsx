@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ImageLogin from "../../assets/imageLogin.png";
-import SignIn from '../../components/SignIn';
-import SignUp from '../../components/SignUp';
+import SignIn from '../../components/Login/SignIn';
+import SignUp from '../../components/Login/SignUp';
 
 const Login = () => {
     const [showSignIn, setShowSignIn] = useState(true);

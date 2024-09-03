@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
-import logoLogin from "../assets/logoLogin.png";
+import logoLogin from "../../assets/logoLogin";
 import { Eye, EyeSlash } from "@phosphor-icons/react";
 
-const SignUp = ({ onSignInClick }) => {
+const SignIn = ({ onSignInClick }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -105,3 +105,5 @@ const SignUp = ({ onSignInClick }) => {
     </div>
   );
 };
+
+export default SignIn;
