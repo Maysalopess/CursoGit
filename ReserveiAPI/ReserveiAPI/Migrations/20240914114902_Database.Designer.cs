@@ -11,8 +11,8 @@ using ReserveiAPI.Contexts;
 namespace ReserveiAPI.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240831132631_dbReservei")]
-    partial class dbReservei
+    [Migration("20240914114902_Database")]
+    partial class Database
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,7 +64,7 @@ namespace ReserveiAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("user");
+                    b.ToTable("users");
 
                     b.HasData(
                         new

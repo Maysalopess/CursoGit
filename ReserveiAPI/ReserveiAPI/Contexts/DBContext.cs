@@ -8,7 +8,7 @@ namespace ReserveiAPI.Contexts
     {
         public AppDBContext(DbContextOptions<AppDBContext> options) : base(options) { }
 
-        public DbSet<UserModel> User { get; set;}
+        public DbSet<UserModel> Users { get; set;}
 
         protected override void OnModelCreating (ModelBuilder modelBuilder) 
         {

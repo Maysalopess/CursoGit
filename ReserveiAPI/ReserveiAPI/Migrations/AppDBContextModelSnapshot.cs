@@ -61,7 +61,7 @@ namespace ReserveiAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("user");
+                    b.ToTable("users");
 
                     b.HasData(
                         new

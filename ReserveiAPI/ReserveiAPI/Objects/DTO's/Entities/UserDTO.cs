@@ -8,7 +8,7 @@ namespace ReserveiAPI.Objects.DTO_s.Entities
 
         public int Id { get; set; }
 
-        public string? ImageUser { get; set; }
+        public string ImageProfile { get; set; }
 
         [Required(ErrorMessage = "O nome é requirido")]
         [MaxLength(100)]

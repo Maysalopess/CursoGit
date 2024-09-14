@@ -18,27 +18,27 @@ namespace ReserveiAPI.Repositories.Entities
 
         public async Task<IEnumerable<UserModel>> GetAll()
         {
-            return await _dbContext.User.AsNoTracking().ToListAsync();
+            return await _dbContext.Users.AsNoTracking().ToListAsync();
         }
 
         public async Task<UserModel> GetById(int id)
         {
-            return await _dbContext.User.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
+            return await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task<UserModel> GetByEmail(string email)
         {
-            return await _dbContext.User.AsNoTracking().FirstOrDefaultAsync(u => u.EmailUser == email);
+            return await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.EmailUser == email);
         }
 
         public async Task<UserModel> Login(Login login)
         {
-            return await _dbContext.User.AsNoTracking().FirstOrDefaultAsync(u => u.EmailUser == login.Email && u.PasswordUser == login.Password);
+            return await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.EmailUser == login.Email && u.PasswordUser == login.Password);
         }
 
         public async Task<UserModel> Create(UserModel userModel)
         {
-            _dbContext.User.Add(userModel);
+            _dbContext.Users.Add(userModel);
             await _dbContext.SaveChangesAsync();
             return userModel;
         }
@@ -52,7 +52,7 @@ namespace ReserveiAPI.Repositories.Entities
         }
         public async Task<UserModel> Delete(UserModel userModel)
         {
-           _dbContext.User.Remove(userModel);
+           _dbContext.Users.Remove(userModel);
             await _dbContext.SaveChangesAsync();
 
             return userModel;

@@ -2,7 +2,7 @@
 
     namespace ReserveiAPI.Objects.Models.Entities;
 
-    [Table("user")]
+    [Table("users")]
     public class UserModel
     {
         [Column ("iduser")]
