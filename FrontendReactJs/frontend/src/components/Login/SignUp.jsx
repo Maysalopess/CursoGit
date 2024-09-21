@@ -15,7 +15,7 @@ const SignUp = ({ onSignInClick }) => {
 
         try {
             const response = await axios.post('https://localhost:7215/api/User/Create', {
-                imageUser: 'guigas',
+                imageProfile: 'guigas',
                 nameUser: name,
                 emailUser: email,
                 passwordUser: password,
